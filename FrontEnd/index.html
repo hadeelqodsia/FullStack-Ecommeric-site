@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Brand – eCommerce</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ===== RESET & VARIABLES ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#1677ff;
+  --blue-dark:#0e5cd8;
+  --blue-light:#e6f0ff;
+  --teal:#00b6a4;
+  --orange:#ff6b00;
+  --red:#e53935;
+  --green:#22a861;
+  --yellow:#f5a623;
+  --gray1:#f7f8fa;
+  --gray2:#eef0f3;
+  --gray3:#d8dce4;
+  --gray4:#a0a8b4;
+  --gray5:#6b7280;
+  --gray6:#374151;
+  --dark:#111827;
+  --white:#fff;
+  --shadow-sm:0 1px 4px rgba(0,0,0,.08);
+  --shadow:0 2px 12px rgba(0,0,0,.10);
+  --shadow-lg:0 6px 32px rgba(0,0,0,.13);
+  --radius:8px;
+  --font:'Barlow',sans-serif;
+}
+body{font-family:var(--font);font-size:14px;color:var(--dark);background:var(--gray1);min-height:100vh}
+a{text-decoration:none;color:inherit}
+img{display:block;width:100%;height:100%;object-fit:cover}
+ul{list-style:none}
+button{cursor:pointer;font-family:var(--font);border:none;outline:none}
+input{font-family:var(--font)}
+
+/* ===== PAGE NAV ===== */
+#page-nav{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9999;
+  background:var(--dark);color:#fff;border-radius:40px;
+  display:none;gap:0;overflow:hidden;box-shadow:var(--shadow-lg);
+}
+#page-nav button{
+  background:transparent;color:#ccc;padding:10px 18px;font-size:13px;font-weight:600;
+  transition:background .2s,color .2s;border-right:1px solid #2d2d2d;
+}
+#page-nav button:last-child{border-right:none}
+#page-nav button.active,#page-nav button:hover{background:var(--blue);color:#fff}
+
+/* ===== PAGES ===== */
+.page{display:none;min-height:100vh;flex-direction:column}
+.page.active{display:flex}
+
+/* ===== SHARED HEADER ===== */
+.site-header{
+  background:var(--white);border-bottom:1px solid var(--gray2);
+  position:sticky;top:0;z-index:100;
+}
+.header-top{
+  background:var(--blue);color:#fff;font-size:12px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:4px 24px;gap:8px;
+}
+.header-top a{color:#fff;opacity:.85;font-size:12px}
+.header-top a:hover{opacity:1}
+.header-main{
+  display:flex;align-items:center;gap:16px;padding:10px 24px;
+}
+.logo{
+  font-family:'Nunito',sans-serif;font-size:22px;font-weight:800;
+  color:var(--blue);display:flex;align-items:center;gap:6px;min-width:90px;
+}
+.logo span{
+  width:28px;height:28px;background:var(--blue);border-radius:6px;
+  display:grid;place-items:center;
+}
+.logo span svg{width:16px;height:16px;fill:#fff}
+.search-bar{
+  flex:1;display:flex;border:2px solid var(--blue);border-radius:6px;overflow:hidden;
+}
+.search-bar input{
+  flex:1;border:none;outline:none;padding:8px 14px;font-size:14px;color:var(--dark);
+}
+.search-bar select{
+  border:none;border-left:1px solid var(--gray3);outline:none;
+  padding:0 10px;font-size:13px;background:var(--gray1);color:var(--gray5);cursor:pointer;
+}
+.search-bar button{
+  background:var(--blue);color:#fff;padding:0 20px;font-size:14px;font-weight:600;
+  transition:background .2s;
+}
+.search-bar button:hover{background:var(--blue-dark)}
+.header-icons{display:flex;align-items:center;gap:18px}
+.icon-btn{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  font-size:11px;color:var(--gray5);cursor:pointer;position:relative;
+  transition:color .2s;
+}
+.icon-btn:hover{color:var(--blue)}
+.icon-btn svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8}
+.badge{
+  position:absolute;top:-4px;right:-6px;background:var(--red);color:#fff;
+  border-radius:999px;font-size:10px;padding:1px 5px;font-weight:700;
+}
+.nav-cats{
+  display:flex;gap:0;border-top:1px solid var(--gray2);padding:0 24px;overflow-x:auto;
+}
+.nav-cats a{
+  padding:8px 14px;font-size:13px;font-weight:500;color:var(--gray6);
+  white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s;
+}
+.nav-cats a:hover,.nav-cats a.active{color:var(--blue);border-bottom-color:var(--blue)}
+
+/* ===== SHARED FOOTER ===== */
+.site-footer{
+  background:var(--white);border-top:1px solid var(--gray2);margin-top:40px;
+}
+.footer-cta{
+  background:var(--blue);color:#fff;padding:18px 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.footer-cta p{font-size:14px;font-weight:600}
+.footer-cta small{font-size:12px;opacity:.8;display:block}
+.footer-cta input{
+  border:none;outline:none;padding:8px 14px;border-radius:6px;
+  width:220px;font-size:13px;
+}
+.footer-cta button{
+  background:var(--orange);color:#fff;padding:8px 20px;border-radius:6px;
+  font-size:13px;font-weight:700;transition:background .2s;
+}
+.footer-cta button:hover{background:#e55a00}
+.footer-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:32px;padding:32px 24px;
+}
+.footer-col h4{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:12px}
+.footer-col ul li{margin-bottom:6px}
+.footer-col ul li a{color:var(--gray5);font-size:13px;transition:color .2s}
+.footer-col ul li a:hover{color:var(--blue)}
+.footer-apps{display:flex;gap:8px;margin-top:8px}
+.app-btn{
+  background:var(--dark);color:#fff;border-radius:6px;padding:6px 12px;
+  font-size:11px;font-weight:600;display:flex;align-items:center;gap:6px;cursor:pointer;
+}
+.app-btn svg{width:16px;height:16px;fill:#fff}
+.footer-bottom{
+  border-top:1px solid var(--gray2);padding:14px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:12px;color:var(--gray4);
+}
+.flag{display:inline-flex;align-items:center;gap:4px;cursor:pointer}
+
+/* ===== IMAGE PLACEHOLDER ===== */
+.img-ph{
+  background:var(--gray2);position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.img-ph::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--gray2) 0%,var(--gray3) 50%,var(--gray2) 100%);
+  background-size:200% 200%;animation:shimmer 1.6s infinite;
+}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.img-ph img{position:relative;z-index:1}
+
+/* ===== STARS ===== */
+.stars{display:inline-flex;gap:1px;color:var(--yellow);font-size:12px}
+
+/* ===== PILL / BADGE ===== */
+.pill{
+  display:inline-block;padding:2px 8px;border-radius:999px;
+  font-size:11px;font-weight:700;
+}
+.pill-red{background:#fff0f0;color:var(--red)}
+.pill-green{background:#f0faf4;color:var(--green)}
+.pill-blue{background:var(--blue-light);color:var(--blue)}
+.pill-orange{background:#fff4eb;color:var(--orange)}
+
+/* ===== BUTTONS ===== */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:9px 20px;border-radius:6px;font-size:14px;font-weight:600;
+  transition:all .2s;cursor:pointer;border:none;
+}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-blue:hover{background:var(--blue-dark)}
+.btn-outline{background:transparent;color:var(--blue);border:1.5px solid var(--blue)}
+.btn-outline:hover{background:var(--blue-light)}
+.btn-orange{background:var(--orange);color:#fff}
+.btn-orange:hover{background:#e55a00}
+.btn-green{background:var(--green);color:#fff}
+.btn-green:hover{background:#1b8a50}
+.btn-sm{padding:6px 14px;font-size:13px}
+.btn-full{width:100%}
+
+/* ============================================================
+   PAGE 1 – HOMEPAGE
+============================================================ */
+/* Hero Banner */
+.hero{display:flex;gap:12px;padding:16px 24px;align-items:stretch}
+.hero-slide{
+  flex:1;border-radius:var(--radius);overflow:hidden;position:relative;
+  min-height:220px;background:linear-gradient(135deg,#0c3f8a,#1677ff);
+  display:flex;flex-direction:column;justify-content:flex-end;padding:24px;color:#fff;
+}
+.hero-slide h2{font-size:24px;font-weight:800;line-height:1.2;margin-bottom:6px}
+.hero-slide p{font-size:13px;opacity:.85;margin-bottom:16px}
+.hero-img-area{
+  position:absolute;right:0;top:0;width:55%;height:100%;
+}
+.hero-right{display:flex;flex-direction:column;gap:12px;width:220px}
+.hero-card{
+  flex:1;border-radius:var(--radius);overflow:hidden;position:relative;
+  min-height:102px;padding:16px;display:flex;flex-direction:column;justify-content:flex-end;
+  color:#fff;
+}
+.hero-card.teal{background:linear-gradient(135deg,#00877a,#00c4b0)}
+.hero-card.orange{background:linear-gradient(135deg,#d14900,#ff6b00)}
+.hero-card h3{font-size:15px;font-weight:700}
+.hero-card p{font-size:12px;opacity:.85}
+.hero-card-img{position:absolute;right:8px;top:8px;width:80px;height:80px;opacity:.85}
+
+/* Category Grid */
+.section{padding:0 24px 24px}
+.section-header{display:flex;align-items:center;justify-content:space-between;padding:20px 0 14px}
+.section-header h2{font-size:18px;font-weight:700;color:var(--dark)}
+.section-header a{font-size:13px;color:var(--blue)}
+.cat-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.cat-card{
+  background:var(--white);border-radius:var(--radius);padding:16px 12px;
+  text-align:center;cursor:pointer;transition:box-shadow .2s,transform .2s;
+  border:1px solid var(--gray2);
+}
+.cat-card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.cat-card-img{
+  width:64px;height:64px;border-radius:12px;margin:0 auto 10px;
+}
+.cat-card h4{font-size:12px;font-weight:600;color:var(--gray6);line-height:1.3}
+
+/* Featured Row */
+.prod-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.prod-card{
+  background:var(--white);border-radius:var(--radius);border:1px solid var(--gray2);
+  overflow:hidden;cursor:pointer;transition:box-shadow .2s,transform .2s;
+  display:flex;flex-direction:column;
+}
+.prod-card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.prod-card-img{height:160px;flex-shrink:0}
+.prod-card-body{padding:10px 12px 14px;flex:1;display:flex;flex-direction:column}
+.prod-card-name{font-size:13px;color:var(--gray6);line-height:1.4;margin-bottom:6px;flex:1;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.prod-card-price{font-size:16px;font-weight:700;color:var(--red)}
+.prod-card-old{font-size:12px;color:var(--gray4);text-decoration:line-through;margin-left:4px}
+.prod-card-meta{display:flex;align-items:center;gap:6px;margin-top:4px}
+.prod-card-sold{font-size:11px;color:var(--gray4)}
+
+/* Send Quote Banner */
+.quote-banner{
+  background:linear-gradient(90deg,#e9f3ff,#d0e8ff);
+  border-radius:var(--radius);margin:0 24px;padding:28px 32px;
+  display:flex;align-items:center;gap:32px;
+}
+.quote-banner h2{font-size:20px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.quote-banner p{font-size:13px;color:var(--gray5);max-width:340px;line-height:1.6}
+.quote-form{
+  flex:1;background:var(--white);border-radius:var(--radius);
+  padding:20px;box-shadow:var(--shadow);
+}
+.quote-form h3{font-size:15px;font-weight:700;margin-bottom:14px;color:var(--dark)}
+.quote-form input,.quote-form textarea{
+  width:100%;border:1px solid var(--gray3);border-radius:6px;
+  padding:8px 12px;font-size:13px;color:var(--dark);outline:none;
+  margin-bottom:10px;font-family:var(--font);resize:none;
+}
+.quote-form input:focus,.quote-form textarea:focus{border-color:var(--blue)}
+
+/* Suppliers Map */
+.suppliers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.supplier-card{
+  background:var(--white);border-radius:var(--radius);border:1px solid var(--gray2);
+  padding:14px;display:flex;align-items:center;gap:12px;
+  cursor:pointer;transition:box-shadow .2s;
+}
+.supplier-card:hover{box-shadow:var(--shadow)}
+.supplier-img{width:60px;height:60px;border-radius:var(--radius);flex-shrink:0}
+.supplier-info h4{font-size:13px;font-weight:600;margin-bottom:2px}
+.supplier-info p{font-size:12px;color:var(--gray4)}
+
+/* Regions */
+.regions-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px}
+.region-item{
+  display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray5);cursor:pointer;
+}
+.region-item:hover{color:var(--blue)}
+.region-flag{width:20px;height:14px;border-radius:2px;flex-shrink:0}
+
+.list-layout{display:flex;gap:0;flex:1}
+.filters-sidebar{
+  width:220px;flex-shrink:0;background:var(--white);border-right:1px solid var(--gray2);
+  padding:20px 16px;overflow-y:auto;
+}
+.filter-group{margin-bottom:20px}
+.filter-group h4{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:10px;
+  padding-bottom:6px;border-bottom:1px solid var(--gray2)}
+.filter-item{
+  display:flex;align-items:center;gap:8px;padding:4px 0;cursor:pointer;
+  font-size:13px;color:var(--gray5);transition:color .2s;
+}
+.filter-item:hover{color:var(--blue)}
+.filter-item input{accent-color:var(--blue);cursor:pointer}
+.filter-item label{cursor:pointer}
+.price-range{display:flex;align-items:center;gap:6px}
+.price-range input{
+  flex:1;border:1px solid var(--gray3);border-radius:4px;
+  padding:5px 8px;font-size:12px;outline:none;
+}
+.price-range input:focus{border-color:var(--blue)}
+.rating-filter{display:flex;flex-direction:column;gap:6px}
+.color-filter{display:flex;flex-wrap:wrap;gap:6px}
+.color-dot{
+  width:20px;height:20px;border-radius:50%;cursor:pointer;
+  border:2px solid transparent;transition:border-color .2s;
+}
+.color-dot:hover,.color-dot.active{border-color:var(--blue)}
+.list-main{flex:1;padding:16px}
+.list-toolbar{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--white);border-radius:var(--radius);padding:10px 16px;
+  margin-bottom:12px;border:1px solid var(--gray2);
+}
+.view-btns{display:flex;gap:4px}
+.view-btn{
+  background:var(--gray1);border:1px solid var(--gray3);border-radius:4px;
+  padding:5px 8px;cursor:pointer;display:flex;align-items:center;
+  transition:all .2s;
+}
+.view-btn.active,.view-btn:hover{background:var(--blue);border-color:var(--blue)}
+.view-btn svg{width:16px;height:16px;stroke:var(--gray5);fill:none;stroke-width:1.8}
+.view-btn.active svg,.view-btn:hover svg{stroke:#fff}
+.sort-select{
+  border:1px solid var(--gray3);border-radius:4px;padding:5px 10px;
+  font-size:13px;outline:none;cursor:pointer;background:var(--white);
+}
+.list-items{display:flex;flex-direction:column;gap:12px}
+.list-item{
+  background:var(--white);border-radius:var(--radius);border:1px solid var(--gray2);
+  display:flex;gap:16px;padding:16px;cursor:pointer;transition:box-shadow .2s;
+}
+.list-item:hover{box-shadow:var(--shadow)}
+.list-item-img{width:140px;height:140px;flex-shrink:0;border-radius:6px}
+.list-item-body{flex:1;display:flex;flex-direction:column;gap:6px}
+.list-item-name{font-size:15px;font-weight:600;color:var(--dark);line-height:1.4}
+.list-item-specs{font-size:12px;color:var(--gray4)}
+.list-item-price{font-size:20px;font-weight:800;color:var(--red)}
+.list-item-moq{font-size:12px;color:var(--gray4)}
+.list-item-desc{font-size:13px;color:var(--gray5);line-height:1.6}
+.list-item-actions{display:flex;gap:8px;margin-top:auto}
+.list-item-side{
+  width:130px;flex-shrink:0;display:flex;flex-direction:column;
+  align-items:flex-end;gap:8px;
+}
+.verified-badge{
+  display:inline-flex;align-items:center;gap:4px;font-size:11px;
+  color:var(--teal);font-weight:600;background:#e8faf9;padding:3px 8px;border-radius:4px;
+}
+.verified-badge svg{width:12px;height:12px;stroke:var(--teal);fill:none;stroke-width:2.5}
+.pagination{
+  display:flex;align-items:center;justify-content:center;gap:4px;margin-top:20px;
+}
+.page-btn{
+  width:32px;height:32px;border-radius:4px;border:1px solid var(--gray3);
+  background:var(--white);font-size:13px;display:grid;place-items:center;
+  cursor:pointer;transition:all .2s;
+}
+.page-btn.active,.page-btn:hover{background:var(--blue);border-color:var(--blue);color:#fff}
+
+/* ============================================================
+   PAGE 3 – PRODUCT LIST (GRID VIEW)
+============================================================ */
+.grid-items{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+}
+.grid-item{
+  background:var(--white);border-radius:var(--radius);border:1px solid var(--gray2);
+  overflow:hidden;cursor:pointer;transition:box-shadow .2s,transform .2s;
+}
+.grid-item:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.grid-item-img{height:180px}
+.grid-item-body{padding:12px}
+.grid-item-name{font-size:13px;color:var(--gray6);line-height:1.4;margin-bottom:8px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.grid-item-price{font-size:18px;font-weight:800;color:var(--red)}
+.grid-item-moq{font-size:12px;color:var(--gray4)}
+.grid-item-meta{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+
+/* ============================================================
+   PAGE 4 – PRODUCT DETAIL
+============================================================ */
+.detail-layout{display:flex;gap:0;flex:1}
+.detail-main{flex:1;padding:20px 24px;display:flex;flex-direction:column;gap:20px}
+.breadcrumb{font-size:12px;color:var(--gray4);display:flex;align-items:center;gap:4px}
+.breadcrumb a{color:var(--blue)}
+.breadcrumb span{color:var(--gray3)}
+.detail-top{display:flex;gap:24px;background:var(--white);border-radius:var(--radius);
+  border:1px solid var(--gray2);padding:24px}
+.detail-gallery{width:340px;flex-shrink:0}
+.detail-main-img{
+  width:100%;height:280px;border-radius:var(--radius);
+  border:1px solid var(--gray2);margin-bottom:10px;
+}
+.detail-thumbs{display:flex;gap:8px}
+.detail-thumb{
+  width:56px;height:56px;border-radius:6px;border:2px solid var(--gray2);
+  cursor:pointer;flex-shrink:0;transition:border-color .2s;
+}
+.detail-thumb:hover,.detail-thumb.active{border-color:var(--blue)}
+.detail-info{flex:1}
+.detail-info h1{font-size:20px;font-weight:700;line-height:1.4;margin-bottom:10px}
+.detail-prices{display:flex;align-items:baseline;gap:8px;margin-bottom:12px;
+  padding:14px;background:var(--gray1);border-radius:var(--radius)}
+.detail-price-now{font-size:28px;font-weight:800;color:var(--red)}
+.detail-price-was{font-size:16px;color:var(--gray4);text-decoration:line-through}
+.detail-price-off{font-size:14px;font-weight:700;color:var(--orange)}
+.detail-table{width:100%;border-collapse:collapse;margin-bottom:14px}
+.detail-table tr{border-bottom:1px solid var(--gray2)}
+.detail-table td{padding:8px 4px;font-size:13px}
+.detail-table td:first-child{color:var(--gray4);width:130px}
+.detail-table td:last-child{font-weight:500;color:var(--dark)}
+.color-swatches{display:flex;gap:6px;flex-wrap:wrap}
+.swatch{
+  width:28px;height:28px;border-radius:50%;cursor:pointer;
+  border:2px solid var(--gray3);transition:all .2s;
+}
+.swatch:hover,.swatch.active{border-color:var(--blue);transform:scale(1.1)}
+.size-swatches{display:flex;gap:6px;flex-wrap:wrap}
+.size-swatch{
+  padding:4px 12px;border:1px solid var(--gray3);border-radius:4px;
+  font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;
+}
+.size-swatch:hover,.size-swatch.active{border-color:var(--blue);color:var(--blue);background:var(--blue-light)}
+.qty-control{display:flex;align-items:center;gap:0;border:1px solid var(--gray3);
+  border-radius:6px;overflow:hidden;width:fit-content}
+.qty-btn{
+  background:var(--gray1);border:none;padding:8px 14px;font-size:18px;
+  cursor:pointer;transition:background .2s;
+}
+.qty-btn:hover{background:var(--gray2)}
+.qty-input{
+  border:none;border-left:1px solid var(--gray3);border-right:1px solid var(--gray3);
+  padding:8px 14px;width:60px;text-align:center;font-size:14px;outline:none;
+}
+.detail-actions{display:flex;gap:10px;margin-top:14px}
+.detail-sidebar{
+  width:240px;flex-shrink:0;border-left:1px solid var(--gray2);
+  background:var(--white);padding:20px 16px;display:flex;flex-direction:column;gap:16px;
+}
+.seller-card{border:1px solid var(--gray2);border-radius:var(--radius);padding:14px}
+.seller-card h4{font-size:14px;font-weight:700;margin-bottom:8px}
+.seller-stat{display:flex;justify-content:space-between;font-size:12px;padding:4px 0;
+  border-bottom:1px solid var(--gray2)}
+.seller-stat:last-of-type{border:none}
+.seller-stat span:last-child{font-weight:600;color:var(--blue)}
+.detail-recs h3{font-size:14px;font-weight:700;margin-bottom:10px}
+.rec-item{
+  display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--gray2);cursor:pointer;
+}
+.rec-item:last-child{border:none}
+.rec-img{width:52px;height:52px;border-radius:6px;flex-shrink:0}
+.rec-info{font-size:12px}
+.rec-info p{color:var(--gray5);line-height:1.4;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.rec-info strong{color:var(--red);font-size:13px}
+
+/* Reviews */
+.review-section{background:var(--white);border-radius:var(--radius);
+  border:1px solid var(--gray2);padding:20px}
+.review-section h2{font-size:16px;font-weight:700;margin-bottom:16px}
+.review-summary{display:flex;align-items:center;gap:32px;margin-bottom:20px;
+  padding-bottom:16px;border-bottom:1px solid var(--gray2)}
+.review-score{text-align:center}
+.review-score .big{font-size:48px;font-weight:800;color:var(--dark);line-height:1}
+.review-score .stars{font-size:18px}
+.review-bars{flex:1;display:flex;flex-direction:column;gap:6px}
+.review-bar{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--gray5)}
+.bar-track{flex:1;height:6px;background:var(--gray2);border-radius:3px;overflow:hidden}
+.bar-fill{height:100%;background:var(--yellow);border-radius:3px}
+.review-card{padding:14px 0;border-bottom:1px solid var(--gray2)}
+.review-card:last-child{border:none}
+.review-author{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.review-avatar{
+  width:36px;height:36px;border-radius:50%;background:var(--blue-light);
+  display:grid;place-items:center;font-weight:700;font-size:14px;color:var(--blue);flex-shrink:0;
+}
+.review-author-info strong{font-size:13px;font-weight:600}
+.review-author-info small{font-size:11px;color:var(--gray4)}
+.review-text{font-size:13px;color:var(--gray5);line-height:1.6}
+
+/* ============================================================
+   PAGE 5 – SHOPPING CART
+============================================================ */
+.cart-layout{display:flex;gap:20px;padding:20px 24px;flex:1;align-items:flex-start}
+.cart-main{flex:1;display:flex;flex-direction:column;gap:12px}
+.cart-header-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--white);border-radius:var(--radius);padding:12px 16px;
+  border:1px solid var(--gray2);
+}
+.cart-header-bar h2{font-size:16px;font-weight:700}
+.cart-header-bar a{font-size:13px;color:var(--blue)}
+.cart-item{
+  background:var(--white);border-radius:var(--radius);border:1px solid var(--gray2);
+  padding:16px;display:flex;align-items:flex-start;gap:14px;
+}
+.cart-check{accent-color:var(--blue);width:16px;height:16px;cursor:pointer;margin-top:4px;flex-shrink:0}
+.cart-item-img{width:90px;height:90px;border-radius:6px;flex-shrink:0}
+.cart-item-info{flex:1;display:flex;flex-direction:column;gap:4px}
+.cart-item-name{font-size:14px;font-weight:600;color:var(--dark);line-height:1.4}
+.cart-item-variant{font-size:12px;color:var(--gray4)}
+.cart-item-price{font-size:18px;font-weight:800;color:var(--red);margin-top:6px}
+.cart-item-old{font-size:12px;color:var(--gray4);text-decoration:line-through}
+.cart-item-actions{display:flex;align-items:center;gap:12px;margin-top:8px}
+.cart-item-total{text-align:right;min-width:100px;display:flex;flex-direction:column;
+  align-items:flex-end;gap:6px}
+.cart-item-total strong{font-size:16px;font-weight:700;color:var(--dark)}
+.remove-btn{
+  background:none;border:none;font-size:11px;color:var(--gray4);cursor:pointer;
+  transition:color .2s;
+}
+.remove-btn:hover{color:var(--red)}
+.cart-sidebar{width:300px;flex-shrink:0;display:flex;flex-direction:column;gap:12px}
+.order-summary{
+  background:var(--white);border-radius:var(--radius);border:1px solid var(--gray2);
+  padding:20px;
+}
+.order-summary h3{font-size:15px;font-weight:700;margin-bottom:14px;
+  padding-bottom:10px;border-bottom:1px solid var(--gray2)}
+.summary-row{display:flex;justify-content:space-between;font-size:13px;
+  color:var(--gray5);padding:5px 0}
+.summary-row.total{font-size:16px;font-weight:800;color:var(--dark);
+  border-top:1px solid var(--gray2);padding-top:12px;margin-top:6px}
+.promo-input{
+  display:flex;gap:8px;margin:12px 0;
+}
+.promo-input input{
+  flex:1;border:1px solid var(--gray3);border-radius:6px;padding:7px 10px;
+  font-size:13px;outline:none;
+}
+.promo-input input:focus{border-color:var(--blue)}
+.cart-recs{background:var(--white);border-radius:var(--radius);border:1px solid var(--gray2);padding:16px}
+.cart-recs h3{font-size:14px;font-weight:700;margin-bottom:12px}
+.cart-rec-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cart-rec-item{cursor:pointer}
+.cart-rec-img{height:90px;border-radius:6px;border:1px solid var(--gray2)}
+.cart-rec-name{font-size:11px;color:var(--gray5);margin-top:4px;line-height:1.3;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cart-rec-price{font-size:13px;font-weight:700;color:var(--red)}
+
+/* ===== Promo Banner ===== */
+.promo-banner{
+  background:linear-gradient(90deg,#0c3f8a,#1677ff);color:#fff;
+  border-radius:var(--radius);padding:14px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.promo-banner p{font-size:14px;font-weight:700}
+.promo-banner small{font-size:12px;opacity:.8}
+.promo-banner button{
+  background:var(--orange);color:#fff;padding:7px 16px;border-radius:6px;
+  font-size:13px;font-weight:700;border:none;cursor:pointer;white-space:nowrap;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1100px){
+  .cat-grid{grid-template-columns:repeat(4,1fr)}
+  .prod-row{grid-template-columns:repeat(3,1fr)}
+  .footer-grid{grid-template-columns:repeat(3,1fr)}
+  .detail-sidebar{display:none}
+  .cart-sidebar{width:260px}
+}
+@media(max-width:768px){
+  .header-main{flex-wrap:wrap}
+  .search-bar{order:3;flex-basis:100%}
+  .hero-right{display:none}
+  .cat-grid{grid-template-columns:repeat(3,1fr)}
+  .prod-row{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:repeat(2,1fr)}
+  .list-layout{flex-direction:column}
+  .filters-sidebar{width:100%;border-right:none;border-bottom:1px solid var(--gray2)}
+  .detail-top{flex-direction:column}
+  .detail-gallery{width:100%}
+  .cart-layout{flex-direction:column}
+  .cart-sidebar{width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== PAGE NAV ===== -->
+<div id="page-nav">
+  <button class="active" onclick="showPage(0)">🏠 Home</button>
+  <button onclick="showPage(1)">☰ List View</button>
+  <button onclick="showPage(2)">⊞ Grid View</button>
+  <button onclick="showPage(3)">📦 Product</button>
+  <button onclick="showPage(4)">🛒 Cart</button>
+</div>
+
+<!-- ============================================================
+  SHARED HEADER (reused via JS)
+============================================================ -->
+<template id="shared-header">
+  <header class="site-header">
+    <div class="header-top">
+      <span>Sign in for the <strong>BEST</strong> sourcing experience</span>
+      <div style="display:flex;gap:16px">
+        <a href="#">Become a supplier</a>
+        <a href="#">Trade Assurance</a>
+        <a href="#">Help Center</a>
+      </div>
+    </div>
+    <div class="header-main">
+      <div class="logo">
+        <span>
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </span>
+        Brand
+      </div>
+      <div class="search-bar">
+        <input type="text" placeholder="Search products, suppliers…" value="Electronics"/>
+        <select>
+          <option>All Categories</option>
+          <option>Electronics</option>
+          <option>Clothing</option>
+          <option>Machinery</option>
+        </select>
+        <button>Search</button>
+      </div>
+      <div class="header-icons">
+        <div class="icon-btn">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>Account</span>
+        </div>
+        <div class="icon-btn">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span>Wish List</span>
+        </div>
+        <div class="icon-btn" style="position:relative" onclick="showPage(4)">
+          <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="badge">3</span>
+          <span>Cart</span>
+        </div>
+      </div>
+    </div>
+    <nav class="nav-cats">
+      <a href="#" class="active">All Categories</a>
+      <a href="#">Electronics</a>
+      <a href="#">Machinery</a>
+      <a href="#">Clothing &amp; Apparel</a>
+      <a href="#">Home &amp; Garden</a>
+      <a href="#">Sports</a>
+      <a href="#">Automotive</a>
+      <a href="#">Beauty</a>
+      <a href="#">Packaging</a>
+    </nav>
+  </header>
+</template>
+<template id="shared-footer">
+  <footer class="site-footer">
+    <div class="footer-cta">
+      <div>
+        <p>Subscribe to our newsletter</p>
+        <small>Get the best deals and latest sourcing insights</small>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <input type="email" placeholder="Enter your email…"/>
+        <button>Follow Us</button>
+      </div>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo" style="margin-bottom:12px">
+          <span style="width:24px;height:24px;background:var(--blue);border-radius:5px;display:grid;place-items:center">
+            <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:#fff"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </span>
+          Brand
+        </div>
+        <p style="font-size:12px;color:var(--gray4);line-height:1.6">Global B2B marketplace connecting buyers and suppliers worldwide.</p>
+        <div class="footer-apps">
+          <div class="app-btn"><svg viewBox="0 0 24 24"><path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/></svg>App Store</div>
+          <div class="app-btn"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Google Play</div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="#">Electronics</a></li>
+          <li><a href="#">Machinery</a></li>
+          <li><a href="#">Apparel</a></li>
+          <li><a href="#">Home &amp; Garden</a></li>
+          <li><a href="#">Automotive</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Collections</h4>
+        <ul>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Best Sellers</a></li>
+          <li><a href="#">Flash Deals</a></li>
+          <li><a href="#">Supplier Spotlight</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Information</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Trade Assurance</a></li>
+          <li><a href="#">Buyer Protection</a></li>
+          <li><a href="#">Supplier Portal</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Policies</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Use</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">IP Policy</a></li>
+          <li><a href="#">Sitemap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Brand.com. All rights reserved.</span>
+      <span class="flag">🌐 English (US)</span>
+      <span>🔒 Secure Checkout</span>
+    </div>
+  </footer>
+</template>
+<div class="page active" id="pg0"></div>
+
+<div class="page" id="pg1"></div>
+
+<div class="page" id="pg2"></div>
+
+<div class="page" id="pg3"></div>
+
+<div class="page" id="pg4"></div>
+
+<script>
+
+const imgPh = (w,h,color='#d0d8e8',label='') =>
+  `<div class="img-ph" style="width:${w}px;height:${h}px;background:${color};border-radius:6px;flex-shrink:0">
+    ${label ? `<span style="font-size:10px;color:#888;z-index:1;position:relative">${label}</span>` : ''}
+  </div>`;
+
+const stars = (n=4.5) => {
+  let s='';
+  for(let i=1;i<=5;i++){
+    if(i<=Math.floor(n)) s+='★';
+    else if(i-0.5<=n) s+='½';
+    else s+='☆';
+  }
+  return `<span class="stars">${s}</span>`;
+};
+
+const header = () => document.getElementById('shared-header').innerHTML;
+const footer = () => document.getElementById('shared-footer').innerHTML;
+
+// const products = [
+//   {name:'iPhone 14 Pro – 256GB Space Black',price:'$862.00',old:'$1,099',sold:'230 sold',rating:4.8,color:'#1a1a1a',},
+//   {name:'Samsung Galaxy S23 Ultra 5G Unlocked',price:'$745.00',old:'$899',sold:'512 sold',rating:4.7,color:'#2a5fad'},
+//   {name:'iPhone 14 – 128GB Red Special Edition',price:'$680.00',old:'$799',sold:'88 sold',rating:4.6,color:'#c0392b'},
+//   {name:'Apple MacBook Pro 14" M2 Pro 512GB',price:'$1,963.50',old:'$2,299',sold:'44 sold',rating:4.9,color:'#7f8c8d'},
+//   {name:'Apple Watch Series 8 GPS + Cellular 45mm',price:'$395.75',old:'$499',sold:'310 sold',rating:4.7,color:'#1d3557'},
+//   {name:'Sony WH-1000XM5 Noise-Cancelling Headphones',price:'$862.00',old:'$999',sold:'180 sold',rating:4.8,color:'#2c2c2c'},
+// ];
+const products = [
+  {
+    name:'iPhone 14 Pro – 256GB Space Black',
+    price:'$862.00',
+    old:'$1,099',
+    sold:'230 sold',
+    rating:4.8,
+    color:'#1a1a1a',
+    img:'../FrontEnd/imgs/Image/tech/1.jpg'},
+  {
+    name:'Samsung Galaxy S23 Ultra 5G Unlocked',
+    price:'$745.00',
+    old:'$899',
+    sold:'512 sold',
+    rating:4.7,
+    color:'#2a5fad',
+    img:'../FrontEnd/imgs/Image/tech/2.jpg'
+  },
+  {
+    name:'iPhone 14 – 128GB Red Special Edition',
+    price:'$680.00',
+    old:'$799',
+    sold:'88 sold',
+    rating:4.6,
+    color:'#c0392b',
+    img:'../FrontEnd/imgs/Image/tech/3.jpg'
+  },
+  {
+    name:'Apple MacBook Pro 14" M2 Pro 512GB',
+    price:'$1,963.50',
+    old:'$2,299',
+    sold:'44 sold',
+    rating:4.9,
+    color:'#7f8c8d',
+    img:'../FrontEnd/imgs/Image/tech/7.jpg'
+  },
+  {
+    name:'Apple Watch Series 8 GPS + Cellular 45mm',
+    price:'$395.75',
+    old:'$499',
+    sold:'310 sold',
+    rating:4.7,
+    color:'#1d3557',
+    img:'../FrontEnd/imgs/Image/tech/8.jpg'
+  },
+  {
+    name:'Sony WH-1000XM5 Noise-Cancelling Headphones',
+    price:'$862.00',
+    old:'$999',
+    sold:'180 sold',
+    rating:4.8,
+    color:'#2c2c2c',
+    img:'../FrontEnd/imgs/Image/tech/5.jpg'
+  }
+];
+
+function buildHome(){
+  const cats = [
+    {name:'Consumer Electronics',color:'#dbeafe'},
+    {name:'Machinery & Parts',color:'#dcfce7'},
+    {name:'Clothing & Apparel',color:'#fce7f3'},
+    {name:'Home & Garden',color:'#fef9c3'},
+    {name:'Sports & Outdoors',color:'#ede9fe'},
+    {name:'Automotive',color:'#ffedd5'},
+  ];
+  const suppliers = [
+    {name:'TechSource Co.',country:'China',deals:'1,240+ deals'},
+    {name:'FashionHub Ltd.',country:'Bangladesh',deals:'890+ deals'},
+    {name:'MachinePro Inc.',country:'Germany',deals:'340+ deals'},
+    {name:'HomeGoods Asia',country:'Vietnam',deals:'560+ deals'},
+  ];
+  const regions = [
+    {flag:'🇨🇳',name:'China'},
+    {flag:'🇮🇳',name:'India'},
+    {flag:'🇩🇪',name:'Germany'},
+    {flag:'🇺🇸',name:'USA'},
+    {flag:'🇯🇵',name:'Japan'},
+    {flag:'🇧🇩',name:'Bangladesh'},
+    {flag:'🇹🇷',name:'Turkey'},
+    {flag:'🇮🇹',name:'Italy'},
+    {flag:'🇰🇷',name:'Korea'},
+    {flag:'🇧🇷',name:'Brazil'},
+  ];
+
+  return `
+${header()}
+<main style="flex:1">
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-slide">
+      <div class="hero-img-area img-ph" style="background:linear-gradient(135deg,#1a5fd8,#0d3ca3)">
+        <img src="" alt="" style="opacity:.5"/>
+      </div>
+      <div style="position:relative;z-index:1">
+        <div class="pill pill-orange" style="margin-bottom:8px">Latest Trending</div>
+        <h2>Latest, Trending<br>Electronic Items</h2>
+        <p>Shop now for the best deals on electronics</p>
+        <button class="btn btn-blue btn-sm" style="width:fit-content">Shop Now</button>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-card teal">
+        <div class="hero-card-img img-ph" style="background:rgba(255,255,255,.15)">
+          <img src="" alt=""/>
+        </div>
+        <h3>Headphones</h3>
+        <p>From $29.00</p>
+      </div>
+      <div class="hero-card orange">
+        <div class="hero-card-img img-ph" style="background:rgba(255,255,255,.15)">
+          <img src="" alt=""/>
+        </div>
+        <h3>Smart Watches</h3>
+        <p>From $49.00</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Categories -->
+  <div class="section">
+    <div class="section-header"><h2>Popular Categories</h2><a href="#">View All →</a></div>
+    <div class="cat-grid">
+      ${cats.map(c=>`
+        <div class="cat-card" onclick="showPage(1)">
+          <div class="cat-card-img img-ph" style="background:${c.color}"><img src="" alt=""/></div>
+          <h4>${c.name}</h4>
+        </div>`).join('')}
+    </div>
+  </div>
+
+  <!-- Featured Products -->
+  <div class="section">
+    <div class="section-header"><h2>Featured Products</h2><a href="#" onclick="showPage(1);return false">See all →</a></div>
+    <div class="prod-row">
+      ${products.map(p=>`
+        <div class="prod-card" onclick="showPage(3)">
+          <div class="prod-card-img img-ph" style="background:${p.color}20">
+            <img src="" alt=""/>
+          </div>
+          <div class="prod-card-body">
+            <div class="prod-card-name">${p.name}</div>
+            <div>
+              <span class="prod-card-price">${p.price}</span>
+              <span class="prod-card-old">${p.old}</span>
+            </div>
+            <div class="prod-card-meta">
+              ${stars(p.rating)}
+              <span class="prod-card-sold">${p.sold}</span>
+            </div>
+          </div>
+        </div>`).join('')}
+    </div>
+  </div>
+
+  <!-- Quote Banner -->
+  <div class="quote-banner">
+    <div>
+      <h2>An easy way to send<br>requests to all suppliers</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur facilisis diam in mi lacinia, sed lobortis lorem feugiat.</p>
+    </div>
+    <div class="quote-form">
+      <h3>Send quote to suppliers</h3>
+      <input type="text" placeholder="What item you need?"/>
+      <input type="text" placeholder="Quantity &amp; unit (e.g. 100 pieces)"/>
+      <textarea rows="3" placeholder="Detailed requirements…"></textarea>
+      <button class="btn btn-blue btn-full">Send Inquiry</button>
+    </div>
+  </div>
+
+  <!-- Recommended -->
+  <div class="section" style="margin-top:24px">
+    <div class="section-header"><h2>Recommended Items</h2><a href="#">More →</a></div>
+    <div class="prod-row">
+      ${[
+        {name:'Blue Casual Shirt',price:'$12.50',color:'#3b82f6'},
+        {name:'Tan Leather Jacket',price:'$89.00',color:'#b45309'},
+        {name:'Navy Formal Suit',price:'$145.00',color:'#1e3a8a'},
+        {name:'Dark Denim Jeans',price:'$28.00',color:'#1e40af'},
+        {name:'Canvas Backpack',price:'$34.00',color:'#6b7280'},
+      ].map(p=>`
+        <div class="prod-card" onclick="showPage(3)">
+          <div class="prod-card-img img-ph" style="background:${p.color}30"><img src="" alt=""/></div>
+          <div class="prod-card-body">
+            <div class="prod-card-name">${p.name}</div>
+            <div><span class="prod-card-price">${p.price}</span></div>
+            <div class="prod-card-meta">${stars(4.3)}<span class="prod-card-sold">120+ sold</span></div>
+          </div>
+        </div>`).join('')}
+    </div>
+  </div>
+
+  <!-- Suppliers by region -->
+  <div class="section">
+    <div class="section-header"><h2>Our Online Services</h2><a href="#">View All →</a></div>
+    <div class="suppliers-grid">
+      ${suppliers.map(s=>`
+        <div class="supplier-card">
+          <div class="supplier-img img-ph" style="background:var(--gray2)"><img src="" alt=""/></div>
+          <div class="supplier-info">
+            <h4>${s.name}</h4>
+            <p>📍 ${s.country}</p>
+            <p style="color:var(--blue);font-size:12px">${s.deals}</p>
+          </div>
+        </div>`).join('')}
+    </div>
+    <div class="section-header" style="padding-top:24px"><h2>Suppliers by Region</h2></div>
+    <div class="regions-grid">
+      ${regions.map(r=>`
+        <div class="region-item"><span style="font-size:16px">${r.flag}</span><span>${r.name}</span></div>`).join('')}
+    </div>
+  </div>
+</main>
+${footer()}`;
+}
+
+function buildListView(){
+  const filterGroups = `
+    <div class="filter-group">
+      <h4>Category</h4>
+      ${['Smartphones (42)','Laptops (18)','Tablets (11)','Smartwatches (9)','Headphones (23)','Cameras (15)'].map(c=>`
+        <div class="filter-item"><input type="checkbox" id="c${c}"><label for="c${c}">${c}</label></div>`).join('')}
+    </div>
+    <div class="filter-group">
+      <h4>Price Range</h4>
+      <div class="price-range" style="margin-bottom:8px">
+        <input type="text" placeholder="Min" value="100"/>
+        <span style="color:var(--gray4)">—</span>
+        <input type="text" placeholder="Max" value="2000"/>
+        <button class="btn btn-blue btn-sm" style="padding:5px 10px;font-size:12px">OK</button>
+      </div>
+    </div>
+    <div class="filter-group">
+      <h4>Rating</h4>
+      <div class="rating-filter">
+        ${[5,4,3,2,1].map(r=>`
+          <div class="filter-item">
+            <input type="checkbox"><label>★${r}${r<5?' & up':''}</label>
+          </div>`).join('')}
+      </div>
+    </div>
+    <div class="filter-group">
+      <h4>Color</h4>
+      <div class="color-filter">
+        ${['#1a1a1a','#2a5fad','#c0392b','#f5f5f5','#27ae60','#f39c12','#8e44ad','#e67e22'].map(c=>`
+          <div class="color-dot" style="background:${c}"></div>`).join('')}
+      </div>
+    </div>
+    <div class="filter-group">
+      <h4>Shipping</h4>
+      ${['Free Shipping','Express Delivery','Trade Assurance'].map(s=>`
+        <div class="filter-item"><input type="checkbox"><label>${s}</label></div>`).join('')}
+    </div>
+    <div class="filter-group">
+      <h4>Supplier</h4>
+      ${['Verified Supplier','Gold Supplier','Trade Assurance'].map(s=>`
+        <div class="filter-item"><input type="checkbox"><label>${s}</label></div>`).join('')}
+    </div>`;
+
+  const items = [
+    {name:'Apple iPhone 14 Pro Max 256GB – Space Black',price:'$862.00',moq:'Min order: 1 piece',desc:'6.7" Super Retina XDR display, A16 Bionic chip, 48MP Main camera system, Always-On display. Available in Deep Purple, Gold, Silver, Space Black.',rating:4.8,reviews:230,color:'#1a1a2e'},
+    {name:'Samsung Galaxy S23 Ultra 5G – Phantom Black',price:'$745.00',moq:'Min order: 2 pieces',desc:'6.8" Dynamic AMOLED 2X, Snapdragon 8 Gen 2, 200MP camera, built-in S Pen. Up to 12GB RAM + 512GB storage.',rating:4.7,reviews:512,color:'#0d1b2a'},
+    {name:'Apple iPhone 14 128GB – Product Red',price:'$680.00',moq:'Min order: 1 piece',desc:'A15 Bionic, 6.1" Super Retina XDR, Crash Detection, Emergency SOS via satellite. Unlocked for all carriers.',rating:4.6,reviews:88,color:'#7f0000'},
+    {name:'Apple MacBook Pro 14" M2 Pro 512GB SSD',price:'$1,963.50',moq:'Min order: 1 unit',desc:'Apple M2 Pro chip, 16GB unified memory, 16-core Neural Engine, Liquid Retina XDR display, MagSafe 3 charging.',rating:4.9,reviews:44,color:'#2c2c2c'},
+    {name:'Apple Watch Series 8 GPS+Cellular 45mm',price:'$395.75',moq:'Min order: 5 units',desc:'Temperature sensing, Crash Detection, ECG app, Heart Rate notifications. 18-hour battery, water resistant 50m.',rating:4.7,reviews:310,color:'#1d3557'},
+  ];
+
+  return `
+${header()}
+<div class="list-layout" style="flex:1">
+  <aside class="filters-sidebar">${filterGroups}</aside>
+  <div class="list-main">
+    <div class="list-toolbar">
+      <span style="font-size:13px;color:var(--gray5)"><strong style="color:var(--dark)">1,240</strong> results for "Electronics"</span>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="view-btns">
+          <div class="view-btn active" onclick="showPage(1)">
+            <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          </div>
+          <div class="view-btn" onclick="showPage(2)">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </div>
+        </div>
+        <select class="sort-select">
+          <option>Sort: Best Match</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+          <option>Most Orders</option>
+          <option>Newest</option>
+        </select>
+      </div>
+    </div>
+    <div class="list-items">
+      ${items.map(p=>`
+        <div class="list-item" onclick="showPage(3)">
+          <div class="list-item-img img-ph" style="background:${p.color}20;width:140px;height:140px;flex-shrink:0;border-radius:6px">
+            <img src="" alt=""/>
+          </div>
+          <div class="list-item-body">
+            <div class="list-item-name">${p.name}</div>
+            <div style="display:flex;align-items:center;gap:8px">
+              ${stars(p.rating)}
+              <span class="list-item-specs">(${p.reviews} reviews)</span>
+              <span class="verified-badge">
+                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Verified
+              </span>
+            </div>
+            <div class="list-item-price">${p.price}</div>
+            <div class="list-item-moq">${p.moq}</div>
+            <div class="list-item-desc">${p.desc}</div>
+            <div class="list-item-actions">
+              <button class="btn btn-blue btn-sm">Contact Supplier</button>
+              <button class="btn btn-outline btn-sm">Add to Cart</button>
+            </div>
+          </div>
+          <div class="list-item-side">
+            <span class="pill pill-green">In Stock</span>
+            <span style="font-size:11px;color:var(--gray4);text-align:right">Ships from China</span>
+            <span style="font-size:11px;color:var(--teal);font-weight:600">Trade Assurance</span>
+          </div>
+        </div>`).join('')}
+    </div>
+    <div class="pagination">
+      <button class="page-btn">‹</button>
+      ${[1,2,3,'…',8,9,10].map((p,i)=>`<button class="page-btn ${p===1?'active':''}">${p}</button>`).join('')}
+      <button class="page-btn">›</button>
+    </div>
+    <div class="footer-cta" style="margin-top:20px;border-radius:var(--radius)">
+      <div><p>Subscribe to our newsletter</p><small>Get the best deals</small></div>
+      <div style="display:flex;gap:8px"><input type="email" placeholder="Your email…"/><button>Follow Us</button></div>
+    </div>
+  </div>
+</div>
+${footer()}`;
+}
+
+function buildGridView(){
+  const items = [
+    {name:'Apple iPhone 14 Pro 256GB – Space Black',price:'$862.00',moq:'Min 1 pc',rating:4.8,color:'#1a1a2e'},
+    {name:'Samsung Galaxy S23 Ultra 5G Phantom',price:'$745.00',moq:'Min 2 pcs',rating:4.7,color:'#0d1b2a'},
+    {name:'Apple iPhone 14 128GB – (PRODUCT)RED',price:'$680.00',moq:'Min 1 pc',rating:4.6,color:'#7f0000'},
+    {name:'Apple iPhone 13 Mini 256GB – Blue',price:'$580.00',moq:'Min 1 pc',rating:4.5,color:'#1e40af'},
+    {name:'Apple MacBook Pro 14" M2 Pro 512GB',price:'$1,963.50',moq:'Min 1 unit',rating:4.9,color:'#374151'},
+    {name:'Apple Watch Series 8 GPS+Cellular 45mm',price:'$395.75',moq:'Min 5 units',rating:4.7,color:'#1d3557'},
+    {name:'Canon EOS R10 Mirrorless Camera Body',price:'$879.00',moq:'Min 1 unit',rating:4.6,color:'#7f1d1d'},
+    {name:'Sony WH-1000XM5 Wireless Headphones',price:'$280.00',moq:'Min 3 pcs',rating:4.8,color:'#111827'},
+    {name:'Apple AirPods Pro 2nd Generation',price:'$189.00',moq:'Min 5 pcs',rating:4.9,color:'#d1d5db'},
+  ];
+
+  return `
+${header()}
+<div class="list-layout" style="flex:1">
+  <aside class="filters-sidebar">
+    <div class="filter-group">
+      <h4>Category</h4>
+      ${['Smartphones (42)','Laptops (18)','Tablets (11)','Smartwatches (9)','Headphones (23)','Cameras (15)'].map(c=>`
+        <div class="filter-item"><input type="checkbox"><label>${c}</label></div>`).join('')}
+    </div>
+    <div class="filter-group">
+      <h4>Price Range</h4>
+      <div class="price-range">
+        <input type="text" placeholder="Min" value="100"/>
+        <span>—</span>
+        <input type="text" placeholder="Max" value="2000"/>
+        <button class="btn btn-blue btn-sm" style="padding:5px 10px;font-size:12px">OK</button>
+      </div>
+    </div>
+    <div class="filter-group">
+      <h4>Rating</h4>
+      ${[5,4,3,2,1].map(r=>`
+        <div class="filter-item"><input type="checkbox"><label>★${r}${r<5?' & up':''}</label></div>`).join('')}
+    </div>
+    <div class="filter-group">
+      <h4>Color</h4>
+      <div class="color-filter">
+        ${['#1a1a1a','#2a5fad','#c0392b','#f5f5f5','#27ae60','#f39c12'].map(c=>`
+          <div class="color-dot" style="background:${c}"></div>`).join('')}
+      </div>
+    </div>
+  </aside>
+  <div class="list-main">
+    <div class="list-toolbar">
+      <span style="font-size:13px;color:var(--gray5)"><strong style="color:var(--dark)">1,240</strong> results</span>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="view-btns">
+          <div class="view-btn" onclick="showPage(1)">
+            <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          </div>
+          <div class="view-btn active" onclick="showPage(2)">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </div>
+        </div>
+        <select class="sort-select">
+          <option>Sort: Best Match</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+          <option>Most Orders</option>
+        </select>
+      </div>
+    </div>
+    <div class="grid-items">
+      ${items.map(p=>`
+        <div class="grid-item" onclick="showPage(3)">
+          <div class="grid-item-img img-ph" style="background:${p.color}20">
+            <img src="" alt=""/>
+          </div>
+          <div class="grid-item-body">
+            <div class="grid-item-name">${p.name}</div>
+            <div class="grid-item-price">${p.price}</div>
+            <div class="grid-item-moq">${p.moq}</div>
+            <div class="grid-item-meta">
+              ${stars(p.rating)}
+              <span class="verified-badge" style="font-size:10px">
+                <svg viewBox="0 0 24 24" style="width:10px;height:10px;stroke:var(--teal);fill:none;stroke-width:2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Verified
+              </span>
+            </div>
+          </div>
+        </div>`).join('')}
+    </div>
+    <div class="pagination" style="margin-top:20px">
+      <button class="page-btn">‹</button>
+      ${[1,2,3,'…',8,9,10].map(p=>`<button class="page-btn ${p===1?'active':''}">${p}</button>`).join('')}
+      <button class="page-btn">›</button>
+    </div>
+    <div class="footer-cta" style="margin-top:20px;border-radius:var(--radius)">
+      <div><p>Subscribe to our newsletter</p><small>Get the best deals</small></div>
+      <div style="display:flex;gap:8px"><input type="email" placeholder="Your email…"/><button>Follow Us</button></div>
+    </div>
+  </div>
+</div>
+${footer()}`;
+}
+
+function buildProductDetail(){
+  const colors=['#1a1a1a','#c0392b','#2980b9','#f5f5f5','#27ae60','#8e44ad'];
+  const sizes=['XS','S','M','L','XL','XXL'];
+  const thumbColors=['#1a1a2e','#2c2c2c','#374151','#1e3a8a','#4b5563'];
+  const recItems = [
+    {name:'iPhone 14 128GB Blue',price:'$580.00',color:'#1e40af'},
+    {name:'MacBook Air M2 13"',price:'$1,099.00',color:'#374151'},
+    {name:'AirPods Pro 2nd Gen',price:'$189.00',color:'#d1d5db'},
+    {name:'iPad Pro 11" M2',price:'$799.00',color:'#1d3557'},
+  ];
+  const reviews=[
+    {init:'JD',name:'John D.',date:'March 12, 2026',rating:5,text:'Excellent product quality, exactly as described. Shipped fast and packaging was perfect. Will order again.'},
+    {init:'SA',name:'Sarah A.',date:'February 28, 2026',rating:4,text:'Very good quality. The color is slightly different from the photo but still beautiful. Fast delivery.'},
+    {init:'MK',name:'Mohammed K.',date:'January 15, 2026',rating:5,text:'Amazing product. Highly recommended to anyone looking for quality electronics at a competitive price.'},
+  ];
+
+  return `
+${header()}
+<div class="detail-layout">
+  <div class="detail-main">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="#" onclick="showPage(0);return false">Home</a><span>›</span>
+      <a href="#" onclick="showPage(1);return false">Electronics</a><span>›</span>
+      <a href="#" onclick="showPage(1);return false">Smartphones</a><span>›</span>
+      <span style="color:var(--dark)">iPhone 14 Pro</span>
+    </div>
+
+    <!-- Top -->
+    <div class="detail-top">
+      <!-- Gallery -->
+      <div class="detail-gallery">
+        <div class="detail-main-img img-ph" style="background:#1a1a2e20">
+          <img src="" alt=""/>
+        </div>
+        <div class="detail-thumbs">
+          ${thumbColors.map((c,i)=>`
+            <div class="detail-thumb img-ph ${i===0?'active':''}" style="background:${c}20">
+              <img src="" alt=""/>
+            </div>`).join('')}
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="detail-info">
+        <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap">
+          <span class="pill pill-blue">Top Seller</span>
+          <span class="pill pill-green">In Stock</span>
+          <span class="pill pill-orange">Flash Deal</span>
+        </div>
+        <h1>Apple iPhone 14 Pro Max 256GB – Space Black – Unlocked Global Version</h1>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+          ${stars(4.8)}
+          <span style="font-size:13px;color:var(--blue)">(230 reviews)</span>
+          <span style="font-size:12px;color:var(--gray4)">| 1,240+ sold</span>
+        </div>
+        <div class="detail-prices">
+          <span class="detail-price-now">$862.00</span>
+          <span class="detail-price-was">$1,099.00</span>
+          <span class="detail-price-off">–22% OFF</span>
+        </div>
+
+        <table class="detail-table">
+          <tr><td>Brand</td><td>Apple</td></tr>
+          <tr><td>Model</td><td>iPhone 14 Pro Max</td></tr>
+          <tr><td>Storage</td><td>256 GB</td></tr>
+          <tr><td>RAM</td><td>6 GB</td></tr>
+          <tr><td>Condition</td><td>New & Sealed</td></tr>
+          <tr><td>Warranty</td><td>1 Year International</td></tr>
+          <tr><td>Ships From</td><td>Hong Kong, China</td></tr>
+        </table>
+
+        <div style="margin-bottom:12px">
+          <p style="font-size:13px;font-weight:600;margin-bottom:6px">Color</p>
+          <div class="color-swatches">
+            ${colors.map((c,i)=>`<div class="swatch ${i===0?'active':''}" style="background:${c}" onclick="this.parentElement.querySelectorAll('.swatch').forEach(s=>s.classList.remove('active'));this.classList.add('active')"></div>`).join('')}
+          </div>
+        </div>
+
+        <div style="margin-bottom:12px">
+          <p style="font-size:13px;font-weight:600;margin-bottom:6px">Size (if applicable)</p>
+          <div class="size-swatches">
+            ${sizes.map((s,i)=>`<div class="size-swatch ${i===2?'active':''}" onclick="this.parentElement.querySelectorAll('.size-swatch').forEach(x=>x.classList.remove('active'));this.classList.add('active')">${s}</div>`).join('')}
+          </div>
+        </div>
+
+        <div style="margin-bottom:14px">
+          <p style="font-size:13px;font-weight:600;margin-bottom:6px">Quantity</p>
+          <div class="qty-control">
+            <button class="qty-btn">−</button>
+            <input class="qty-input" type="number" value="1" min="1"/>
+            <button class="qty-btn">+</button>
+          </div>
+          <p style="font-size:11px;color:var(--gray4);margin-top:4px">Min order: 1 piece</p>
+        </div>
+
+        <div class="detail-actions">
+          <button class="btn btn-blue" onclick="showPage(4)">🛒 Add to Cart</button>
+          <button class="btn btn-orange">⚡ Buy Now</button>
+          <button class="btn btn-outline">💬 Contact Supplier</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviews -->
+    <div class="review-section">
+      <h2>Customer Reviews</h2>
+      <div class="review-summary">
+        <div class="review-score">
+          <div class="big">4.8</div>
+          <div class="stars" style="font-size:20px">★★★★★</div>
+          <div style="font-size:12px;color:var(--gray4);margin-top:4px">Based on 230 reviews</div>
+        </div>
+        <div class="review-bars">
+          ${[[5,88],[4,8],[3,3],[2,1],[1,0]].map(([star,pct])=>`
+            <div class="review-bar">
+              <span>${star}★</span>
+              <div class="bar-track"><div class="bar-fill" style="width:${pct}%"></div></div>
+              <span>${pct}%</span>
+            </div>`).join('')}
+        </div>
+      </div>
+      ${reviews.map(r=>`
+        <div class="review-card">
+          <div class="review-author">
+            <div class="review-avatar">${r.init}</div>
+            <div class="review-author-info">
+              <strong>${r.name}</strong>
+              <small>${stars(r.rating)} · ${r.date}</small>
+            </div>
+          </div>
+          <div class="review-text">${r.text}</div>
+        </div>`).join('')}
+    </div>
+
+    <!-- Promo Banner -->
+    <div class="promo-banner">
+      <div>
+        <p>Enjoy discounts on more than $100 USD</p>
+        <small>Get 5% off your first bulk order today</small>
+      </div>
+      <button>Claim Now</button>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="detail-sidebar">
+    <div class="seller-card">
+      <h4>Supplier Info</h4>
+      <div class="seller-stat"><span>Response Rate</span><span>98.6%</span></div>
+      <div class="seller-stat"><span>On-time Delivery</span><span>99.1%</span></div>
+      <div class="seller-stat"><span>Transaction Level</span><span>Gold</span></div>
+      <div class="seller-stat"><span>Years Active</span><span>8 years</span></div>
+      <button class="btn btn-outline btn-full btn-sm" style="margin-top:12px">View Profile</button>
+    </div>
+
+    <div class="detail-recs">
+      <h3>Similar Products</h3>
+      ${recItems.map(r=>`
+        <div class="rec-item">
+          <div class="rec-img img-ph" style="background:${r.color}20"><img src="" alt=""/></div>
+          <div class="rec-info">
+            <p>${r.name}</p>
+            <strong>${r.price}</strong>
+          </div>
+        </div>`).join('')}
+    </div>
+  </div>
+</div>
+${footer()}`;
+}
+
+function buildCart(){
+  const cartItems=[
+    {name:'Apple iPhone 14 Pro Max 256GB – Space Black',variant:'Color: Black | Storage: 256GB',price:'$862.00',old:'$1,099',qty:1,total:'$862.00',color:'#1a1a2e'},
+    {name:'Sony WH-1000XM5 Wireless Noise Cancelling Headphones',variant:'Color: Black | Qty: 2',price:'$280.00',old:'$320',qty:2,total:'$560.00',color:'#111827'},
+    {name:'Apple Watch Series 8 GPS+Cellular 45mm',variant:'Color: Midnight | Size: 45mm',price:'$395.75',old:'$499',qty:1,total:'$395.75',color:'#1d3557'},
+  ];
+  const recItems=[
+    {name:'AirPods Pro 2nd Gen',price:'$189',color:'#d1d5db'},
+    {name:'iPad Pro 11" M2',price:'$799',color:'#1d3557'},
+    {name:'MacBook Air M2',price:'$1,099',color:'#374151'},
+    {name:'iPhone 14 Blue',price:'$580',color:'#1e40af'},
+  ];
+
+  return `
+${header()}
+<div class="cart-layout">
+  <div class="cart-main">
+    <div class="cart-header-bar">
+      <h2>My Cart (3 items)</h2>
+      <a href="#" onclick="showPage(1);return false">← Continue Shopping</a>
+    </div>
+    ${cartItems.map(item=>`
+      <div class="cart-item">
+        <input type="checkbox" class="cart-check" checked/>
+        <div class="cart-item-img img-ph" style="background:${item.color}20">
+          <img src="" alt=""/>
+        </div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-variant">${item.variant}</div>
+          <div class="cart-item-price">${item.price}
+            <span class="cart-item-old">${item.old}</span>
+          </div>
+          <div class="cart-item-actions">
+            <div class="qty-control" style="transform:scale(.9);transform-origin:left">
+              <button class="qty-btn">−</button>
+              <input class="qty-input" type="number" value="${item.qty}" min="1" style="width:50px"/>
+              <button class="qty-btn">+</button>
+            </div>
+            <button class="remove-btn">🗑 Remove</button>
+            <button class="remove-btn">♡ Save for Later</button>
+          </div>
+        </div>
+        <div class="cart-item-total">
+          <strong>${item.total}</strong>
+          <span class="pill pill-green">In Stock</span>
+        </div>
+      </div>`).join('')}
+    
+    <!-- Promo -->
+    <div class="promo-banner">
+      <div>
+        <p>Enjoy discounts on more than $100 USD</p>
+        <small>Use code BULK10 for 10% off bulk orders</small>
+      </div>
+      <button>Claim Now</button>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="cart-sidebar">
+    <div class="order-summary">
+      <h3>Order Summary</h3>
+      <div class="summary-row"><span>Subtotal (3 items)</span><span>$1,817.75</span></div>
+      <div class="summary-row"><span>Shipping</span><span style="color:var(--green)">FREE</span></div>
+      <div class="summary-row"><span>Tax (8%)</span><span>$145.42</span></div>
+      <div class="summary-row"><span>Discount</span><span style="color:var(--red)">–$182.25</span></div>
+      <div class="promo-input">
+        <input type="text" placeholder="Promo code…"/>
+        <button class="btn btn-outline btn-sm">Apply</button>
+      </div>
+      <div class="summary-row total"><span>Total</span><span>$1,780.92</span></div>
+      <button class="btn btn-orange btn-full" style="margin-top:16px;font-size:15px;padding:12px">Proceed to Checkout →</button>
+      <button class="btn btn-outline btn-full" style="margin-top:8px;font-size:13px">PayPal Checkout</button>
+      <p style="font-size:11px;color:var(--gray4);text-align:center;margin-top:10px">🔒 Secure SSL Encryption · Trade Assurance Protected</p>
+    </div>
+
+    <div class="cart-recs">
+      <h3>You May Also Like</h3>
+      <div class="cart-rec-grid">
+        ${recItems.map(r=>`
+          <div class="cart-rec-item">
+            <div class="cart-rec-img img-ph" style="background:${r.color}20">
+              <img class="product-img" src="${r.img}" alt="${r.name}">
+            </div>
+            <div class="cart-rec-name">${r.name}</div>
+            <div class="cart-rec-price">${r.price}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+  </div>
+</div>
+${footer()}`;
+}
+
+const builders = [buildHome, buildListView, buildGridView, buildProductDetail, buildCart];
+
+function showPage(idx){
+  document.querySelectorAll('.page').forEach((p,i)=>{
+    p.classList.toggle('active', i===idx);
+    if(i===idx && !p.dataset.built){
+      p.innerHTML = builders[i]();
+      p.dataset.built='1';
+    }
+  });
+  document.querySelectorAll('#page-nav button').forEach((b,i)=>b.classList.toggle('active',i===idx));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+showPage(0);
+</script>
+</body>
+</html>
